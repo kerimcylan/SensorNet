@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 
 app.get('/', (req, res) => {
-  res.send('Hello from sdf!');
+  res.send('Hello from Web server!');
 });
 
 app.get('/api', (req, res) => {
@@ -10,7 +10,7 @@ app.get('/api', (req, res) => {
 });
 
 app.get('/apik', (req, res) => {
-  res.send('Hello from Web servessdddlsksdsr!');
+  res.send('Hello from Web server!');
 });
 
 
