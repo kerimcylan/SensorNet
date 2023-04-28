@@ -28,7 +28,7 @@ jobs:
         uses: actions/checkout@v2
         
       - name: Build container image
-        run: docker-compose up --build $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7) .
+        run: docker-compose -f docker-compose.yml build 
 
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
@@ -42,7 +42,7 @@ jobs:
         run: if [ ! -z "$(doctl registry repository list | grep "$(echo $IMAGE_NAME)")" ]; then doctl registry repository delete-manifest $(echo $IMAGE_NAME) $(doctl registry repository list-tags $(echo $IMAGE_NAME) | grep -o "sha.*") --force; else echo "No repository"; fi
 
       - name: Push image to DigitalOcean Container Registry
-        run: docker push $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7)
+        run: docker compose -f docker-compose.yml push
         
   deploy:
     runs-on: ubuntu-latest
@@ -69,3 +69,6 @@ jobs:
             --restart always \
             --name $(echo $IMAGE_NAME) \
             $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7)
+
+
+
