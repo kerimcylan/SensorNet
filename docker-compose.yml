@@ -20,3 +20,4 @@ services:
     depends_on:
       - api
       - web
+
