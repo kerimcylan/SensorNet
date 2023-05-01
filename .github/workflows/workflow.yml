@@ -33,5 +33,6 @@ jobs:
           password: ${{ secrets.DROPLETPASS }}
           script: |
             cd /root/SensorNet
+            git pull
             docker-compose pull
             docker-compose up -d
