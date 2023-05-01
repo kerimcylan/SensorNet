@@ -21,7 +21,7 @@ jobs:
         with:
           host: ${{ secrets.DROPLET_IP }}
           username: ${{ secrets.DROPLET_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          password: ${{ secrets.DROPLETPASS }}
           source: docker-compose.yml
           target: ~/docker-compose.yml
 
@@ -30,7 +30,7 @@ jobs:
         with:
           host: ${{ secrets.DROPLET_IP }}
           username: ${{ secrets.DROPLET_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          password: ${{ secrets.DROPLETPASS }}
           script: |
             cd /root/SensorNet
             docker-compose pull
