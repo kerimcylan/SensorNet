@@ -32,6 +32,6 @@ jobs:
           username: ${{ secrets.DROPLET_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd ~
+            cd /root/SensorNet
             docker-compose pull
             docker-compose up -d
