@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 
 app.get('/', (req, res) => {
-  res.send('Son Deneme artık yeter lütfen!');
+  res.send('Serap görsün!');
 });
 
 app.get('/api', (req, res) => {
