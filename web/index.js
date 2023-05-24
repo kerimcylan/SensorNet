@@ -2,14 +2,10 @@ const express = require('express');
 const app = express();
 
 app.get('/', (req, res) => {
-  res.send('Web Sunucusuuuuuuuuuuuuuu!');
+  res.send('Web sunucusuna bağlantı denemesi bir milyon!');
 });
 
 app.get('/api', (req, res) => {
-  res.send('Web Sunucusuuuuuuuuuuuuuu!');
-});
-
-app.get('/apik', (req, res) => {
   res.send('Web Sunucusuuuuuuuuuuuuuu!');
 });
 
