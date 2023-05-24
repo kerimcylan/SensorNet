@@ -6,11 +6,11 @@ app.get('/', (req, res) => {
 });
 
 app.get('/api', (req, res) => {
-  res.send('Hello from Web server!');
+  res.send('Web Sunucusuuuuuuuuuuuuuu!');
 });
 
 app.get('/apik', (req, res) => {
-  res.send('Hello from Web server!');
+  res.send('Web Sunucusuuuuuuuuuuuuuu!');
 });
 
 
