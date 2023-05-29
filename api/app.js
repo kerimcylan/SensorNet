@@ -19,14 +19,14 @@ app.use(bodyParser.json());
 //});
 
 //IMPORT ROUTES
-const postsRoute = require('./api/routes/posts')
+const postsRoute = require('./routes/posts')
 
 app.use('/posts', postsRoute);
 
 
 
 //ROUTES  get:get the info  post:give the info  delete patch:updates 
-app.get('/', (req,res) => {
+app.get('/apicon', (req,res) => {
     res.send("We are on home");
 });
 
