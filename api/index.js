@@ -6,7 +6,6 @@ const bodyParser = require("body-parser");
 const cors = require('cors')
 
 
-// To be able to execute server "app.js" added to scripts in package.json
 
 
 
