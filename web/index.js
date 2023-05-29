@@ -5,9 +5,6 @@ app.get('/', (req, res) => {
   res.send('Serap görsün!');
 });
 
-app.get('/api', (req, res) => {
-  res.send('Web Sunucusuuuuuuudhffdhhfdfduuuuuuu!');
-});
 
 
 app.listen(3000, () => {
