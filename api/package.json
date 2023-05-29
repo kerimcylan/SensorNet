@@ -2,11 +2,12 @@
   "name": "api",
   "version": "1.0.0",
   "description": "API server",
-  "main": "app.js",
+  "main": "index.js",
   "dependencies": {
     "express": "^4.17.1"
   },
   "scripts": {
-    "start": "node app.js"
+    "start": "node index.js",
+    "start": "nodemon app.js"
   }
 }
