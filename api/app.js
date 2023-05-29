@@ -26,7 +26,7 @@ app.use('/posts', postsRoute);
 
 
 //ROUTES  get:get the info  post:give the info  delete patch:updates 
-app.get('/', (req,res) => {
+app.get('/apicik', (req,res) => {
     res.send("We are on home");
 });
 

@@ -8,6 +8,6 @@
   },
   "scripts": {
     "start": "node index.js",
-    "start": "nodemon app.js"
+    "start": "node app.js"
   }
 }
