@@ -25,13 +25,6 @@ app.use('/posts', postsRoute);
 
 
 
-//ROUTES  get:get the info  post:give the info  delete patch:updates 
-app.get('/', (req,res) => {
-    res.send("We are on home");
-});
-
-
-
 //CONNECT TO DB
 mongoose.connect(
     process.env.DB_CONNECTION, 
@@ -40,6 +33,4 @@ mongoose.connect(
 );
 
 
-app.listen(3000, () => {
-  console.log('API server2 is listening on port 3000');
-});
+app.listen(3000)
