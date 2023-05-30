@@ -12,6 +12,8 @@ const DataModel = mongoose.model('Data', new mongoose.Schema({
   Status: String,
   "Nitrogen dioxide": Number,
   "Nitrogen oxides as nitrogen dioxide": String
+}, {
+  collection: 'dummy'
 }));
 
 
