@@ -5,8 +5,26 @@ const app = express();
 require('dotenv/config');
 
 
-app.get('/api', (req, res) => {
-  res.send('Serap görsüns');
+const DataModel = mongoose.model('Data', new mongoose.Schema({
+  _id: String,
+  Date: String,
+  "Nitric oxide": Number,
+  Status: String,
+  "Nitrogen dioxide": Number,
+  "Nitrogen oxides as nitrogen dioxide": String
+}));
+
+
+app.get('/api', async (req, res) => {
+  try {
+    const data = await DataModel.find();
+
+    res.json(data);
+  } catch (err) {
+    console.error('Query Error: ', err);
+    res.status(500).send('Query Error ');
+  }
+
 });
 
 //CONNECT TO DB
