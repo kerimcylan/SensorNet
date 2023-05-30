@@ -13,6 +13,6 @@
   },
   "scripts": {
     "start": "node index.js",
-    "start": "node app.js"
+    "app": "node app.js"
   }
 }
