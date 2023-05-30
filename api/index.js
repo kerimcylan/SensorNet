@@ -5,21 +5,9 @@ const app = express();
 require('dotenv/config');
 
 
-const DataModel = mongoose.model('Data', new mongoose.Schema({
-  _id: String,
-  Date: String,
-  "Nitric oxide": Number,
-  Status: String,
-  "Nitrogen dioxide": Number,
-  "Nitrogen oxides as nitrogen dioxide": String
-}, {
-  collection: 'dummy'
-}));
-
-
 app.get('/api', async (req, res) => {
   try {
-    const data = await DataModel.find();
+    const data = await mongoose.connection.db.collection('dummy').find().toArray();
 
     res.json(data);
   } catch (err) {
