@@ -2,33 +2,43 @@ const express = require('express');
 const app = express();
 const mongoose = require("mongoose");
 
+require('dotenv/config');
 
-const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://khassensor:Nt!51f3!@khassensornetwork.biwmfgq.mongodb.net/?retryWrites=true&w=majority";
+mongoose.connect(
+  process.env.DB_CONNECTION, 
+  { useNewURLparser: true},
+  () => console.log('connected to DB')
+);
 
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
-const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  }
+const User = mongoose.model('User', {
+  name: String,
+  email: String
 });
 
-async function run() {
-  try {
-    // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
-    // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
-  }
-}
-run().catch(console.dir);
+const sampleUser = new User({
+  name: 'John Doe',
+  email: 'johndoe@example.com'
+});
 
+sampleUser.save()
+  .then(() => {
+    console.log('Sample user saved to the database');
+  })
+  .catch((error) => {
+    console.error('Failed to save sample user:', error);
+  });
+
+  app.get('/api/users', (req, res) => {
+    User.find()
+      .then((users) => {
+        res.json(users);
+      })
+      .catch((error) => {
+        console.error('Failed to fetch users:', error);
+        res.status(500).json({ error: 'Failed to fetch users' });
+      });
+  });
+  
 
   app.get('/api', (req, res) => {
     res.send('Deneme');
