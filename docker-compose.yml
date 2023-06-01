@@ -4,13 +4,20 @@ services:
   api:
     build: ./api
     restart: on-failure
+    depends_on:
+      - mongodb
 
   web:
     build: ./web
     volumes:
       - ./web/:/api
     restart: on-failure
-
+    
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"
+      
   nginx:
     image: nginx:latest
     volumes:
