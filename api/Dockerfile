@@ -9,4 +9,4 @@ RUN npm install mongodb
 
 COPY . .
 
-CMD ["npm", "start"]
+CMD ["npm", "start", "dev-server"]

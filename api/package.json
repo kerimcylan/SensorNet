@@ -12,6 +12,10 @@
     "dotenv": "^16.0.3"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "dev-server": "nodemon ./index.js"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
   }
 }
