@@ -5,7 +5,7 @@ const app = express();
 require('dotenv/config');
 
 
-router.get('/api', async (req,res) => {
+index.get('/api', async (req,res) => {
   //res.send("We are on posts");
   try{
       const posts = await dummy.find();
