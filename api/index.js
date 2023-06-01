@@ -9,7 +9,7 @@ mongoose.connect(
   { useNewURLparser: true},
   () => console.log('connected to DB')
 );
-
+ 
 const User = mongoose.model('User', {
   name: String,
   email: String
