@@ -51,7 +51,7 @@ app.get('/api', (req, res) => {
   // Use the appropriate query to find documents with Nitric oxide less than 5
   DataModel.find({ "Nitric oxide": { $lt: 5 } })
     .then((results) => {
-      res.json(results);
+      res.send(results);
     })
     .catch((error) => {
       res.status(500).json({ error: 'An error occurred while querying the database' });
