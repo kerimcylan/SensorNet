@@ -5,14 +5,13 @@ const app = express();
 require('dotenv/config');
 
 
-app.get('/api', async (req, res) => {
-  try {
-    const data = await mongoose.connection.db.collection('dummy').find().toArray();
-
-    res.json(data);
-  } catch (err) {
-    console.error('Query Error: ', err);
-    res.status(500).send('Query Error ');
+router.get('/api', async (req,res) => {
+  //res.send("We are on posts");
+  try{
+      const posts = await dummy.find();
+      res.json(posts);
+  }catch(err){
+      res.json({message: err});
   }
 });
 
