@@ -5,15 +5,12 @@ const app = express();
 require('dotenv/config');
 
 
-index.get('/api', async (req,res) => {
-  //res.send("We are on posts");
-  try{
-      const posts = await dummy.find();
-      res.json(posts);
-  }catch(err){
-      res.json({message: err});
-  }
+const all = await dummy.find(filter);
+
+app.get('/api', (req, res) => {
+  res.send(all);
 });
+
 
 //CONNECT TO DB
 mongoose.connect(
