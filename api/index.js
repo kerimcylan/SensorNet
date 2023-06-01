@@ -21,7 +21,7 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
       { name: 'Jane Smith', age: 28 },
       { name: 'Bob Johnson', age: 35 }
     ];
-
+ 
     DummyModel.insertMany(dummyData)
       .then(() => console.log('Örnek veriler eklendi'))
       .catch((error) => console.error('Örnek veri ekleme hatası:', error));
