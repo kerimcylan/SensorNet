@@ -6,10 +6,10 @@ require('dotenv/config');
 mongoose.connect(
   process.env.DB_CONNECTION, 
   { useNewUrlParser: true, useUnifiedTopology: true },
-  () => console.log('Connected to MongoDB')
+  () => console.log('MongoDB\'ye bağlandı')
 );
 
-// Create a schema and model for your MongoDB collection
+// MongoDB koleksiyonu için şema ve model oluştur
 const exampleSchema = new mongoose.Schema({
   name: String,
   age: Number
@@ -22,26 +22,26 @@ app.get('/api', (req, res) => {
 
 app.get('/api/examples', async (req, res) => {
   try {
-    // Query the collection and retrieve all documents
+    // Koleksiyondaki tüm belgeleri sorgula ve al
     const examples = await ExampleModel.find();
     res.json(examples);
   } catch (error) {
-    console.error('Error querying collection', error);
-    res.status(500).json({ error: 'Internal server error' });
+    console.error('Koleksiyon sorgulanırken hata oluştu', error);
+    res.status(500).json({ error: 'İç sunucu hatası' });
   }
 });
 
 app.get('/api/query', async (req, res) => {
   try {
-    // Query the collection based on your specific criteria
+    // Belirli kriterlere göre koleksiyonda sorgu yap
     const queryResult = await ExampleModel.find({ age: { $gt: 25 } });
     res.json(queryResult);
   } catch (error) {
-    console.error('Error querying collection', error);
-    res.status(500).json({ error: 'Internal server error' });
+    console.error('Koleksiyon sorgulanırken hata oluştu', error);
+    res.status(500).json({ error: 'İç sunucu hatası' });
   }
 });
 
 app.listen(3000, () => {
-  console.log('API server is listening on port 3000');
+  console.log('API sunucusu 3000 numaralı portta dinleniyor');
 });
