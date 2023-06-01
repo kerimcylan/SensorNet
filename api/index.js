@@ -3,11 +3,12 @@ const app = express();
 const mongoose = require("mongoose");
 require('dotenv/config');
 
-mongoose.connect(
-  process.env.DB_CONNECTION, 
-  { useNewUrlParser: true, useUnifiedTopology: true },
-  () => console.log('MongoDB\'ye bağlandı')
-);
+const dbURI = 'mongodb+srv://khassensor:Nt!51f3!k@khassensornetwork.biwmfgq.mongodb.net/?retryWrites=true&w=majority';
+
+
+mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('MongoDB\'ye bağlandı'))
+  .catch((error) => console.error('MongoDB bağlantısı başarısız:', error));
 
 // MongoDB koleksiyonu için şema ve model oluştur
 const exampleSchema = new mongoose.Schema({
