@@ -17,46 +17,10 @@ mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true, useUnifiedT
     console.error('Failed to connect to the database:', error);
   });
 
-
-  const DataSchema = new mongoose.Schema({
-    _id: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-    },
-    Date: {
-      type: String,
-      required: true,
-    },
-    "Nitric oxide": {
-      type: Number,
-      required: true,
-    },
-    Status: {
-      type: String,
-      required: true,
-    },
-    "Nitrogen dioxide": {
-      type: Number,
-      required: true,
-    },
-    "Nitrogen oxides as nitrogen dioxide": {
-      type: Number,
-      required: true,
-    },
+  app.get('/api', (req, res) => {
+    res.send('Deneme');
   });
-
-  const DataModel = mongoose.model('Data', DataSchema);
-
-app.get('/api', (req, res) => {
-  // Use the appropriate query to find documents with Nitric oxide less than 5
-  DataModel.find({ "Nitric oxide": { $lt: 5 } })
-    .then((results) => {
-      res.send(results);
-    })
-    .catch((error) => {
-      res.status(500).json({ error: 'An error occurred while querying the database' });
-    });
-});
+  
 
 
 
