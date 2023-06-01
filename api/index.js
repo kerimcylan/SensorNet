@@ -1,51 +1,47 @@
 const express = require('express');
 const app = express();
 const mongoose = require("mongoose");
-
 require('dotenv/config');
 
 mongoose.connect(
   process.env.DB_CONNECTION, 
-  { useNewURLparser: true},
-  () => console.log('connected to DB')
+  { useNewUrlParser: true, useUnifiedTopology: true },
+  () => console.log('Connected to MongoDB')
 );
- 
-const User = mongoose.model('User', {
+
+// Create a schema and model for your MongoDB collection
+const exampleSchema = new mongoose.Schema({
   name: String,
-  email: String
+  age: Number
+});
+const ExampleModel = mongoose.model('Example', exampleSchema);
+
+app.get('/api', (req, res) => {
+  res.send('Deneme');
 });
 
-const sampleUser = new User({
-  name: 'John Doe',
-  email: 'johndoe@example.com'
+app.get('/api/examples', async (req, res) => {
+  try {
+    // Query the collection and retrieve all documents
+    const examples = await ExampleModel.find();
+    res.json(examples);
+  } catch (error) {
+    console.error('Error querying collection', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 });
 
-sampleUser.save()
-  .then(() => {
-    console.log('Sample user saved to the database');
-  })
-  .catch((error) => {
-    console.error('Failed to save sample user:', error);
-  });
+app.get('/api/query', async (req, res) => {
+  try {
+    // Query the collection based on your specific criteria
+    const queryResult = await ExampleModel.find({ age: { $gt: 25 } });
+    res.json(queryResult);
+  } catch (error) {
+    console.error('Error querying collection', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
-  app.get('/api/users', (req, res) => {
-    User.find()
-      .then((users) => {
-        res.json(users);
-      })
-      .catch((error) => {
-        console.error('Failed to fetch users:', error);
-        res.status(500).json({ error: 'Failed to fetch users' });
-      });
-  });
-  
-
-  app.get('/api', (req, res) => {
-    res.send('Deneme');
-  });
-  
-
-  app.listen(3000, () => {
-    console.log('API server is listening on port 3000');
-  });
-
+app.listen(3000, () => {
+  console.log('API server is listening on port 3000');
+});
