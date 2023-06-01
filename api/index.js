@@ -14,14 +14,13 @@ app.get('/api', async (req, res) => {
     console.error('Query Error: ', err);
     res.status(500).send('Query Error ');
   }
-
 });
 
 //CONNECT TO DB
 mongoose.connect(
   process.env.DB_CONNECTION, 
   { useNewURLparser: true},
-  () => console.log('connected to DB')
+  () => console.log('connected to Database')
 );
 
 app.listen(3000, () => {
