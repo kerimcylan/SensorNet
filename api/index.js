@@ -29,7 +29,7 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .catch((error) => console.error('MongoDB bağlantısı başarısız:', error));
 
 app.get('/api', (req, res) => {
-  res.send('Deneme');
+  res.send('Bağlantı başarılı');
 });
 
 app.get('/api/examples', async (req, res) => {
