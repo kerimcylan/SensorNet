@@ -3,7 +3,7 @@ FROM node:16-alpine
 WORKDIR /
 
 COPY package*.json ./
-COPY ./.next/*.json ./.next/
+COPY *.json ./
 
 RUN npm install
 
