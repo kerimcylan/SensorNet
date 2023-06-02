@@ -7,9 +7,9 @@ services:
 
 
   web:
-    build: ./web
+    build: ./sensorweb
     volumes:
-      - ./web/:/api
+      - ./sensorweb/:/api
     restart: on-failure
     
   nginx:
