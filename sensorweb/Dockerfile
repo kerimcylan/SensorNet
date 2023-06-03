@@ -5,7 +5,7 @@ WORKDIR /web
 COPY package.json ./
 COPY .eslintrc.json ./
 
-RUN npm install
+RUN ["npm", "install"]
 
 COPY ./src ./src
 COPY ./public ./public
