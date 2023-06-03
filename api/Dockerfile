@@ -1,13 +1,14 @@
 FROM node:16-alpine
 
-WORKDIR /app
+WORKDIR /api
 
 COPY package*.json ./
 
 
-RUN npm install
+RUN ["npm", "install"]
 
+COPY ./src ./src
 
-COPY . .
+COPY .env .env
 
-CMD ["npm", "start", "dev-server"]
+CMD ["npm","run", "dev"]

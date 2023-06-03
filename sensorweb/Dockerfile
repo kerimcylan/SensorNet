@@ -1,13 +1,16 @@
 FROM node:16-alpine
 
-WORKDIR /
+WORKDIR /web
 
-COPY package*.json ./
-COPY *.json ./
+COPY package.json ./
+COPY .eslintrc.json ./
 
 RUN npm install
 
-COPY . .
+COPY ./src ./src
+COPY ./public ./public
+COPY *.js ./
+COPY *.ts ./
 
 RUN ["npm", "run", "build"]
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "dev"]
