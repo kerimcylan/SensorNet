@@ -12,6 +12,7 @@ COPY ./src ./src
 COPY ./public ./public
 COPY *.js ./
 COPY *.ts ./
+COPY tsconfig.json ./tsconfig.json
 
 RUN ["npm", "run", "build"]
 CMD npm run ${STAGE}
