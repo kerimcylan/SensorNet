@@ -8,7 +8,7 @@ const MyApp = ({ Component, pageProps }) => {
           <title>Khas Sensor Network</title>
           <link rel="shortcut icon" href="/images/favicon.ico" />
         </Head>
-        <Component {...pageProps} />;
+        <Component {...pageProps} />
       </>
     );
 }
