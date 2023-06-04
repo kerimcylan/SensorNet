@@ -41,7 +41,7 @@ jobs:
             docker-compose pull
             docker-compose up --build -d
           build-args: |
-          "DB_CONNECTION=${{secrets.DB_CONNECTION}}"
-          "STAGE=production"
+            "DB_CONNECTION=${{secrets.DB_CONNECTION}}"
+            "STAGE=production"
 
             
