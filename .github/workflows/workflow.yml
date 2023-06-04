@@ -40,7 +40,9 @@ jobs:
             git pull
             docker-compose pull
             docker-compose up --build -d
+          context: .
           build-args: |
+            
             "DB_CONNECTION=${{secrets.DB_CONNECTION}}"
             "STAGE=production"
 
