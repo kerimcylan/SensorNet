@@ -16,6 +16,8 @@ services:
     restart: on-failure
     volumes:
       - ./sensorweb/src:/web/src
+    environment:
+      - STAGE=${STAGE}
     
     
   nginx:
