@@ -37,6 +37,6 @@ jobs:
             docker-compose pull
             docker-compose up --build -d
           env:
-            DB_CONNECTION: ${{secrets.db_connection}}
+            DB_CONNECTION: ${{secrets.DB_CONNECTION}}
             STAGE: production
             
