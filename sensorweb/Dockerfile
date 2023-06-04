@@ -5,6 +5,7 @@ WORKDIR /web
 COPY package.json ./
 COPY .eslintrc.json ./
 
+RUN ["npm", "install", "-g", "npm@latest"]
 RUN ["npm", "install"]
 
 COPY ./src ./src
