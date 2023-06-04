@@ -16,6 +16,7 @@ services:
     restart: on-failure
     volumes:
       - ./sensorweb/src:/web/src
+      - ./sensorweb/public:/web/public
     environment:
       - STAGE=${STAGE}
     
