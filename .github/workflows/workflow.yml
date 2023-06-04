@@ -25,8 +25,12 @@ jobs:
           source: docker-compose.yml
           target: ~/docker-compose.yml
 
+
       - name: Connect to Droplet and update Docker Compose
         uses: appleboy/ssh-action@master
+        env:
+          DB_CONNECTION: ${{secrets.DB_CONNECTION}}
+          STAGE: production
         with:
           host: ${{ secrets.DROPLET_IP }}
           username: ${{ secrets.DROPLET_USERNAME }}
@@ -36,7 +40,5 @@ jobs:
             git pull
             docker-compose pull
             docker-compose up --build -d
-        env:
-          DB_CONNECTION: ${{secrets.DB_CONNECTION}}
-          STAGE: production
+
             
