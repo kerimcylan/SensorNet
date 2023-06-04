@@ -36,3 +36,7 @@ jobs:
             git pull
             docker-compose pull
             docker-compose up --build -d
+          env:
+            DB_CONNECTION: ${{secrets.db_connection}}
+            STAGE: production
+            

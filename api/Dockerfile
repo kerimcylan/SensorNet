@@ -4,11 +4,11 @@ WORKDIR /api
 
 COPY package*.json ./
 
-
 RUN ["npm", "install"]
+ARG DB_CONNECTION
+ENV DB_CONNECTION $DB_CONNECTION
 
+RUN echo ${DB_CONNECTION}
 COPY ./src ./src
 
-COPY .env .env
-
-CMD ["npm","run", "dev"]
+CMD npm run ${STAGE}

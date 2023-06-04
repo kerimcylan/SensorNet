@@ -31,7 +31,6 @@ app.get("/api", (req, res) => {
   res.send("We are on home. yes yes yes yes yes ");
 });
 
-//CONNECT TO DB
 mongoose.connect(process.env.DB_CONNECTION, { useNewURLparser: true }, () =>
   console.log("connected to DB")
 );

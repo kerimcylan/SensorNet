@@ -6,6 +6,9 @@ services:
     restart: on-failure
     volumes:
     - ./api/src:/api/src
+    environment:
+      - DB_CONNECTION=${DB_CONNECTION}
+      - STAGE=${STAGE}
 
 
   web:
