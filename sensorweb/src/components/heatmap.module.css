@@ -1,0 +1,9 @@
+.heatmap {
+    width: 80vw;
+    height: auto;
+}
+
+.heatmap img {
+    width: 100%;
+    height: auto;
+}
