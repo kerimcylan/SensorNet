@@ -1,6 +1,8 @@
 import Image from "next/image";
+import { useTranslation } from "next-i18next";
 
 export default function Footer() {
+      const { t } = useTranslation();
   return (
     <footer className="flex flex-col items-center justify-between py-6">
       <div className="container flex flex-row justify-between items-start">
@@ -14,7 +16,7 @@ export default function Footer() {
         </div>
         <div>
           <h2 className="text-xl underline underline-offset-8 mb-5">
-            Project Members
+            {t("Project Members")}
           </h2>
           <ul>
             <li>Murad Mollaoğlu</li>
@@ -25,11 +27,11 @@ export default function Footer() {
         </div>
         <div>
           <ul className="flex flex-col gap-1">
-            <li className="font-bold">Home</li>
-            <li className="font-bold">Boxes</li>
-            <li className="font-bold">Sensors</li>
-            <li className="font-bold">Api Docs</li>
-            <li className="font-bold">About Us</li>
+            <li className="font-bold">{t("Home")}</li>
+            <li className="font-bold">{t("Boxes")}</li>
+            <li className="font-bold">{t("Sensors")}</li>
+            <li className="font-bold">{t("Api Docs")}</li>
+            <li className="font-bold">{t("About Us")}</li>
           </ul>
         </div>
       </div>

@@ -1,4 +1,10 @@
 {
   "Hello": "Selam",
-  "Welcome": " Hoşgeldin"
+  "Welcome": "Hoşgeldin",
+  "Home": " Ana Sayfa",
+  "Boxes": "Kutular",
+  "Sensors": "Sensörler",
+  "Api Docs": "Api Dökümantasyonu",
+  "About Us": " Hakkımızda",
+  "Project Members": "Proje Takımı"
 }

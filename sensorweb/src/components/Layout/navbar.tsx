@@ -1,7 +1,9 @@
 import Image from "next/image";
 import "@/pages/globals.css";
+import { useTranslation } from "next-i18next";
 
 export default function Navbar() {
+          const { t } = useTranslation();
   return (
     <header className="flex flex-col items-center justify-between">
       <div className="container flex flex-row justify-between items-center">
@@ -13,11 +15,11 @@ export default function Navbar() {
         />
         <div>
           <ul className="flex flex-row gap-10">
-            <li className="text-2xl">Home</li>
-            <li className="text-2xl">Boxes</li>
-            <li className="text-2xl">Sensors</li>
-            <li className="text-2xl">Api Docs</li>
-            <li className="text-2xl">About Us</li>
+            <li className="text-2xl">{t("Home")}</li>
+            <li className="text-2xl">{t("Boxes")}</li>
+            <li className="text-2xl">{t("Sensors")}</li>
+            <li className="text-2xl">{t("Api Docs")}</li>
+            <li className="text-2xl">{t("About Us")}</li>
           </ul>
         </div>
       </div>
