@@ -7,14 +7,14 @@ import HeatMap from "@/components/heatmap";
 const Home: NextPage = () => {
   return (
     <>
-      <Translation />
-      <HeatMap
-        mapData={[
-          { x: 200, y: 200, value: 20 },
-          { x: 800, y: 200, value: 10 },
-        ]}
-      />
-      
+      <div className="container">
+        <HeatMap
+          mapData={[
+            { x: 200, y: 200, value: 20 },
+            { x: 800, y: 200, value: 10 },
+          ]}
+        />
+      </div>
     </>
   );
 };

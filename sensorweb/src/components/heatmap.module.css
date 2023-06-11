@@ -1,6 +1,7 @@
 .heatmap {
-    width: 80vw;
+    width: 100%;
     height: auto;
+    padding: 8px;
 }
 
 .heatmap img {
