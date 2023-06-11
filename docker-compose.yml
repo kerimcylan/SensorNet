@@ -17,6 +17,7 @@ services:
     volumes:
       - ./sensorweb/src:/web/src
       - ./sensorweb/public:/web/public
+       - ./sensorweb/locales:/web/locales
     environment:
       - STAGE=${STAGE}
     
