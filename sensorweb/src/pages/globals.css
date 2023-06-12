@@ -24,7 +24,7 @@ body {
 
 header {
   background-color: var(--dark-blue);
-  margin-top: 20px;
+  margin-top: 15px;
   margin-bottom: 20px;
 }
 header >div {
