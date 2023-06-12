@@ -15,7 +15,6 @@ router.post("/", async (req, res) => {
     });
     */
 
-    
   const box = await Box.create(req.body);
   console.log(box);
   res.send(box);
@@ -24,18 +23,20 @@ router.post("/", async (req, res) => {
   //console.log(post);
 });
 
-<<<<<<< HEAD
 // Dummy data testing for masterbox
 router.get("/test", async (req, res) => {
   const fs = require("fs");
   const path = require("path");
-  fs.readFile(path.resolve(__dirname, '../storage/last_data.json'), (err, data) => {
-    if (err) res.send(err);
-    else {
-      let lastData = JSON.parse(data);
-      res.send(lastData);
+  fs.readFile(
+    path.resolve(__dirname, "../storage/last_data.json"),
+    (err, data) => {
+      if (err) res.send(err);
+      else {
+        let lastData = JSON.parse(data);
+        res.send(lastData);
+      }
     }
-  });
+  );
   return "hehe";
 });
 
@@ -45,26 +46,22 @@ router.post("/test", async (req, res) => {
   const fs = require("fs");
   const path = require("path");
   fs.writeFileSync(path.resolve(__dirname, "../storage/last_data.json"), data);
-=======
-
+});
 
 router.get("/", async (req, res) => {
-      res.send("test");
->>>>>>> ee20b5d (db changes)
+  res.send("test");
   return "hehe";
 });
 
-
 // GET SPECIFIC POST BY ID
-router.get('/:boxId', async (req,res) => {
-  try{
-  const box = await Box.findById(req.params.postId)
-  res.json(box);
-  //console.log(req.params.postId);
-  }catch(err){
-      res.send("There is no such box");
+router.get("/:boxId", async (req, res) => {
+  try {
+    const box = await Box.findById(req.params.postId);
+    res.json(box);
+    //console.log(req.params.postId);
+  } catch (err) {
+    res.send("There is no such box");
   }
 });
-
 
 module.exports = router;
