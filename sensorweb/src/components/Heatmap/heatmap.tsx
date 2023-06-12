@@ -5,6 +5,8 @@ import { scalePointsFromData } from "@/helpers/locationFns";
 
 export interface heatmapProps {
   mapData: DataPoint<"x", "y", "value">[];
+  min: number,
+  max: number
 }
 
 const HeatMap = (props: heatmapProps) => {
@@ -36,32 +38,40 @@ const HeatMap = (props: heatmapProps) => {
     var config = {
       container: el,
       radius: 50,
-      maxOpacity: 0.5,
-      minOpacity: 0,
+      maxOpacity: 0.8,
+      minOpacity: 0.3,
       blur: 0.75,
     };
+
     // create heatmap with configuration
-    const heatmapInstance = h337.create(config);
-    heatmapInstance.setData({
-      max: 25,
-      min: 0,
+    (window as any).heatmapInstance = h337.create(config);
+    console.log(points);
+    (window as any).heatmapInstance.setData({
+      max: props.max,
+      min: props.min,
       data: points,
     });
-    return heatmapInstance;
   };
   useEffect(() => {
     if (containerRef.current) {
       const element: HTMLElement = containerRef.current!;
-      const heatmap = renderHeatmap(element, newPoints(element));
+      const newData = newPoints(element);
+      renderHeatmap(element, newData);
 
       const renderHeatmapEvent = () => {
-        heatmap.setData({
-          max: 25,
-          min: 0,
-          data: newPoints(element),
+        (window as any).heatmapInstance.setData({
+          max: props.max,
+          min: props.min,
+          data: newData,
         });
       };
       addEventListener("resize", renderHeatmapEvent);
+    }
+
+    return () => {
+      if ((window as any).heatmapInstance) {
+              (window as any).heatmapInstance._renderer.canvas.remove();
+      }
     }
   });
 
