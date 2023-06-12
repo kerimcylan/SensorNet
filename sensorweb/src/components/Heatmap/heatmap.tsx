@@ -3,7 +3,7 @@ import h337, { DataPoint, HeatmapData } from "heatmap.js";
 import styles from "./heatmap.module.css";
 import { scalePointsFromData } from "@/helpers/locationFns";
 
-interface heatmapProps {
+export interface heatmapProps {
   mapData: DataPoint<"x", "y", "value">[];
 }
 
