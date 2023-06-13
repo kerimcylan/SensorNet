@@ -39,4 +39,4 @@ jobs:
             cd /root/SensorNet
             git pull
             docker-compose pull
-            docker-compose up --build -d
+            docker-compose up --build -d --network=host
