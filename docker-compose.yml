@@ -20,10 +20,6 @@ services:
     environment:
       - STAGE=${STAGE}
 
-  redis:
-    image: redis:latest
-    restart: always
-
   nginx:
     image: nginx:latest
     volumes:
@@ -33,3 +29,4 @@ services:
     depends_on:
       - api
       - web
+
