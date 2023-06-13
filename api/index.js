@@ -19,20 +19,20 @@ app.use(bodyParser.json());
 //});
 
 //IMPORT ROUTES
-const postsRoute = require("./routes/posts");
+const postsRoute = require("./src/routes/posts");
 
 app.use("/api/posts", postsRoute);
 
-const boxesRoute = require("./routes/boxes");
+const boxesRoute = require("./src/routes/boxes");
 app.use("/api/boxes", boxesRoute);
 
 //ROUTES  get:get the info  post:give the info  delete patch:updates
 app.get("/api", (req, res) => {
-  res.send("We are on home. yes yes yes yes yes ");
+    res.send("We are on home. yes yes yes yes yes ");
 });
 
 mongoose.connect(process.env.DB_CONNECTION, { useNewURLparser: true }, () =>
-  console.log("connected to DB")
+    console.log("connected to DB")
 );
 
 //How to we start listening to the server

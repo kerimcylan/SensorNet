@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon ./src/index.js -L",
-    "production": "node ./src/index.js"
+    "production": "node ./src/index.js",
+    "start": "nodemon index.js"
   },
   "author": "",
   "license": "ISC",
