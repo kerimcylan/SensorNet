@@ -1,5 +1,5 @@
 import { TSResolutions } from "@/helpers/dataManipulation";
-import mockData from "@/helpers/mockData";
+
 import {
   Chart as ChartJS,
   Filler,
@@ -36,21 +36,6 @@ const LinechartVisual = (props: {
     LinearScale,
     Tooltip
     );
-
-    const mockData = {
-      labels: [
-        "2022-11-01 15:40:30",
-        "2022-11-02 15:41:30",
-        "2022-11-03 15:42:30",
-        "2022-11-04 15:43:30",
-        "2022-11-05 15:44:30",
-      ],
-      datasets: [
-        {
-          data: [25, 15, 35, 45, 15],
-        },
-      ],
-    };
     
 
 let unit = "minutes"
