@@ -20,8 +20,7 @@ const HeatmapWapper = (props: { data: FullData; fieldData: FieldData }) => {
     fieldMin = props.fieldData[sensor].min;
     fieldMax = props.fieldData[sensor].max;
   }
-  console.log(fieldMin);
-  console.log(fieldMax);
+  
   const headerClasses =
     "border-2 border-b-0 px-3 border-blue-dark cursor-pointer";
   const renderFields = fields.map((name, index) => (
