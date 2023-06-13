@@ -19,11 +19,11 @@ app.use(bodyParser.json());
 //});
 
 //IMPORT ROUTES
-const postsRoute = require("./src/routes/posts");
+const postsRoute = require("./routes/posts");
 
 app.use("/api/posts", postsRoute);
 
-const boxesRoute = require("./src/routes/boxes");
+const boxesRoute = require("./routes/boxes");
 app.use("/api/boxes", boxesRoute);
 
 //ROUTES  get:get the info  post:give the info  delete patch:updates
