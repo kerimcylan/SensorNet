@@ -4,10 +4,10 @@ import HeatMapWrapper from "@/components/Heatmap/heatmapWrapper";
 import mockData from "@/helpers/mockData";
 import { useEffect, useState } from "react";
 
-/*
+
 export async function getStaticProps({ locale }: { locale: any }) {
-  const res = await fetch("http://localhost/api/boxes/latest");
-  const boxdata = await res.json();
+  //const res = await fetch("http://localhost/api/boxes/latest");
+  //const boxdata = await res.json();
   console.log(boxdata);
   return {
     props: {
@@ -16,9 +16,9 @@ export async function getStaticProps({ locale }: { locale: any }) {
     },
   };
 }
-*/
 
-const Home = ({ props }: { props: { mydata: any } }) => {
+
+const Home = () => {
   const [mapData, setMapData] = useState(mockData);
 
   const field = {
