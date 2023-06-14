@@ -9,6 +9,7 @@ services:
     environment:
       - DB_CONNECTION=${DB_CONNECTION}
       - STAGE=${STAGE}
+      - MONGODB_URI=${MONGODB_URI}
 
   web:
     build: ./sensorweb
@@ -19,6 +20,19 @@ services:
       - ./sensorweb/locales:/web/locales
     environment:
       - STAGE=${STAGE}
+
+  script:
+    build:
+      context: .
+      dockerfile: ./scripts/Dockerfile.script
+    volumes:
+      - ./scripts:/scripts
+    environment:
+      - MONGODB_URI=${MONGODB_URI}
+    depends_on:
+      - api
+      - web
+      
 
   nginx:
     image: nginx:latest
