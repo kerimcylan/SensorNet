@@ -65,6 +65,7 @@ export interface FieldDatum {
 export const getFields = (fullData: FullData) => {
     const fieldIds: Array<string> = [];
   const fields: Array<FieldDatum> = [];
+
     fullData.forEach((box) => {
         box.fields.forEach((field) => {
           if (!fieldIds.includes(field.field?._id)) {
@@ -76,12 +77,14 @@ export const getFields = (fullData: FullData) => {
   return fields;
 };
 
-export const heatmapPoints = (fullData: FullData) => {
+export const heatmapPoints = (fullData: FullData, sensorId: string) => {
     const points: DataPoint<"x", "y", "value">[] = [];
 
-    fullData.forEach((box) => {
-        box.fields.forEach((field) => {
-            const lastEntry = field.data.raw[0];
+  fullData.forEach((box) => {
+      
+    const sensorData = box.fields.find((i) => i.field._id == sensorId)?.data;
+
+            const lastEntry = sensorData?.raw[0];
                     if (lastEntry) {
                       points.push({
                         x: box.location[0],
@@ -89,7 +92,6 @@ export const heatmapPoints = (fullData: FullData) => {
                         value: lastEntry.value,
                       });
                     }
-        })
     });
   return points;
 };

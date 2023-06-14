@@ -4,7 +4,9 @@ import { useState } from "react";
 import { DataPoint } from "heatmap.js";
 
 const HeatmapWapper = (props: { data: FullData }) => {
+  
   const fields = getFields(props.data);
+
 
   let map: DataPoint<"x", "y", "value">[] = [];
   let sensorState: FieldDatum | null = null;
@@ -12,10 +14,11 @@ const HeatmapWapper = (props: { data: FullData }) => {
     sensorState = fields[0];
   }
 
-  const [sensor, setSensor] = useState(sensorState);
+  const [sensor, setSensor] = useState(sensorState?._id);
 
-  let fieldMin = sensor ? sensor.min : 0;
-  let fieldMax = sensor ? sensor.max : 30;
+  const sensorNow = fields.find((i) => i._id == sensor);
+  let fieldMin = sensorNow != null ? sensorNow.min : 0;
+  let fieldMax = sensorNow != null ? sensorNow.max : 30;
 
   
   const headerClasses =
@@ -24,19 +27,19 @@ const HeatmapWapper = (props: { data: FullData }) => {
 
   const renderFields = fields.map((field, index) => (
     <li
-      key={index}
       className={
-        sensor?.name == field.name
+        sensor == field._id
           ? headerClasses + " bg-blue-dark text-white"
           : headerClasses
       }
-      onClick={() => setSensor(field)}
+      key={field._id}
+      onClick={() => setSensor(field._id)}
     >
       {field.name}
     </li>
   ));
 
-  map = heatmapPoints(props.data);
+  map = heatmapPoints(props.data, sensor);
 
   return (
     <>

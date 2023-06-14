@@ -30,7 +30,7 @@ const Home = () => {
     const fetchData = async () => {
       const res = await fetch("http://164.90.233.32/api/boxes/latest");
       const boxdata = await res.json();
-      console.log(boxdata);
+
       setMapData(boxdata);
     }
     const timeouted = async () => {

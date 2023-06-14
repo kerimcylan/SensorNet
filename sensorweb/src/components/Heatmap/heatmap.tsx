@@ -15,6 +15,7 @@ const HeatMap = (props: heatmapProps) => {
   const newPoints = (el: HTMLElement) => {
     const points = [];
 
+    console.log(props.mapData);
     for (let i = 0; i < props.mapData.length; i++) {
       let newPoints = scalePointsFromData(
         props.mapData[i].x,
@@ -37,19 +38,21 @@ const HeatMap = (props: heatmapProps) => {
   ) => {
     var config = {
       container: el,
-      radius: 50,
+      radius: 35,
       maxOpacity: 0.8,
       minOpacity: 0.3,
       blur: 0.75,
     };
 
+    
     // create heatmap with configuration
-    (window as any).heatmapInstance = h337.create(config);
-    (window as any).heatmapInstance.setData({
-      max: props.max,
-      min: props.min,
-      data: points,
-    });
+      (window as any).heatmapInstance = h337.create(config);
+    
+        (window as any).heatmapInstance.setData({
+        max: props.max,
+        min: props.min,
+        data: points,
+      });
   };
   
   useEffect(() => {
