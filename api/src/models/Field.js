@@ -7,4 +7,4 @@ const FieldSchema = mongoose.Schema({
     AQI: { type: Number, required: true },
 });
 
-module.exports = mongoose.model("Field", FieldSchema);
+module.exports = mongoose.model("fields", FieldSchema);

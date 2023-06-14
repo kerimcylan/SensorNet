@@ -4,30 +4,129 @@ const { restart } = require("nodemon");
 const router = express.Router();
 const Box = require("../models/Box");
 const FieldRoute = require("./fields");
+const slugify = require("slug");
+const Field = require("../models/Field");
+const ObjectId = require("mongoose").Types.ObjectId;
 
-router.post("/", async (req, res) => {
-    try {
-        req.body.data.fieldID = await FieldRoute.GetFieldByID(
-            req.body.data.fieldID
-        );
-        const box = await Box.create(req.body);
-        res.status(201).send(box);
-        return box;
-    } catch (err) {
-        res.send("Error");
+async function updateRawData(id, field, timestamp, value) {
+
+    box = await Box.updateOne(
+    {
+      _id: id,
+      "fields.field": field,
+    },
+    {
+      $push: {
+        "fields.$.data.raw": {
+          timestamp: timestamp,
+          value: value,
+        },
+      },
     }
+    );
+
+    accepted = true;
+    return accepted;
+}
+
+// insert data
+router.post("/", async (req, res) => {
+    const fields = await Field.find().select("_id");
+    //req.body.
+    for (key in fields) {
+        console.log(fields[key]._id == "64882ac7079865bb79058e19");
+    }
+    for (key in req.body.data) {
+        field = key;
+        value = req.body.data[key];
+
+        let box = await updateRawData(
+          req.body.BoxID,
+          field,
+          req.body.Datetime,
+          value
+        );
+    }
+  
+    res.send('OK');
+});
+
+router.post("/createbox", async (req, res) => {
+  if (
+    // Is name valid
+    req.body.name &&
+    typeof req.body.name == "string" &&
+    // Is location valid
+    req.body.location &&
+    Array.isArray(req.body.location) &&
+    req.body.location.length == 2 &&
+    req.body.location[0] <= 1097 &&
+    req.body.location[0] >= 0 &&
+    req.body.location[1] <= 396 &&
+    req.body.location[1] >= 0
+  ) {
+    let documentExists = await Box.exists({
+      slug: slugify(req.body.name, "-"),
+    });
+
+    if (documentExists) {
+      res.status(400).send("Name exists");
+      return;
+    }
+    const box = await Box.create({
+      name: req.body.name,
+      location: req.body.location,
+      slug: slugify(req.body.name, "-"),
+    });
+    res.status(201).send("OK");
+    return;
+  }
+
+  res.status(400).send("Wrong data format");
+});
+
+router.post("/addfieldtobox", async (req, res) => {
+  // Check body integrity
+  if (
+    req.body.slug &&
+    typeof req.body.slug == "string" &&
+    req.body.fieldId &&
+    ObjectId.isValid(req.body.fieldId)
+  ) {
+    const field = await Field.findOne({ _id: req.body.fieldId }).exec();
+    if (!field) {
+      res.status(400).send("Field not found");
+      return;
+    }
+
+    // Check if field already pushed
+    box = await Box.updateOne(
+      { slug: req.body.slug },
+      { $push: { fields: { field: field } } }
+    );
+
+    // If box not found return error with message
+    if (box.matchedCount == 0) {
+      res.status(400).send("Box not found");
+      return;
+    }
+    res.status(200).send("OK");
+    return;
+  }
+
+  res.status(400).send("Wrong data format");
 });
 
 router.get("/", async (req, res) => {
-    try {
-        const boxes = await Box.find().populate("fieldID");
-        if (boxes) {
-            res.send(boxes);
-            return boxes;
-        }
-    } catch (err) {
-        res.send("Error");
+  try {
+    const boxes = await Box.find().populate("fields.field");
+    if (boxes) {
+      res.send(boxes);
+      return boxes;
     }
+  } catch (err) {
+    res.status(500).send("Error");
+  }
 });
 
 /*
@@ -49,31 +148,30 @@ router.patch("/update/:Time/:boxID/:fieldcount", async (req, res) => {
 */
 
 router.get("/:boxname", async (req, res) => {
-    try {
-        const box = await Box.find({ boxName: req.params.boxname });
-        res.send(box.fields);
-        return box.fields;
-    } catch (err) {
-        res.send("Error");
-    }
+  try {
+    const box = await Box.find({ slug: req.params.boxname });
+    res.send(box);
+    //res.send(box.fields);
+    return box.fields;
+  } catch (err) {
+    res.send("Error");
+  }
 });
 
 router.get("/fields/:fieldcount/:fieldID", async (req, res) => {
-    try {
-        const boxes = await Box.aggragate({
-            $group: {
-                _id: req.params.fieldID,
-                raw: fields[{ fieldCount: req.params.fieldCount }].data.raw,
-            },
-        });
-    } catch (err) {
-        res.send("Error");
-    }
+  try {
+    const boxes = await Box.aggragate({
+      $group: {
+        _id: req.params.fieldID,
+        raw: fields[{ fieldCount: req.params.fieldCount }].data.raw,
+      },
+    });
+  } catch (err) {
+    res.send("Error");
+  }
 });
 
-module.exports = router;
 
-/** 
 // Dummy data testing for masterbox
 router.get("/test", async (req, res) => {
     const fs = require("fs");
@@ -91,33 +189,5 @@ router.get("/test", async (req, res) => {
     return "hehe";
 });
 
-router.post("/test", async (req, res) => {
-    res.send("OK");
-    const data = JSON.stringify(req.body);
-    const fs = require("fs");
-    const path = require("path");
-    fs.writeFileSync(
-        path.resolve(__dirname, "../storage/last_data.json"),
-        data
-    );
-});
-
-router.get("/", async (req, res) => {
-    res.send("test");
-    return "hehe";
-});
-
-// GET SPECIFIC POST BY ID
-router.get("/:boxId", async (req, res) => {
-    try {
-        const box = await Box.findById(req.params.postId);
-        res.json(box);
-        //console.log(req.params.postId);
-    } catch (err) {
-        res.send("There is no such box");
-    }
-});
 
 module.exports = router;
-
-*/
