@@ -125,7 +125,16 @@ router.get("/", async (req, res) => {
 
   const boxes = await Box.find(
     {},
-    { "fields.data.raw": { $slice: -1 * GRAPH_LENGTH } }
+    {
+      "fields.data.raw": { $slice: -1 * GRAPH_LENGTH },
+      "fields.data.5m": { $slice: -1 * GRAPH_LENGTH },
+      "fields.data.30m": { $slice: -1 * GRAPH_LENGTH },
+      "fields.data.1h": { $slice: -1 * GRAPH_LENGTH },
+      "fields.data.4h": { $slice: -1 * GRAPH_LENGTH },
+      "fields.data.12h": { $slice: -1 * GRAPH_LENGTH },
+      "fields.data.1d": { $slice: -1 * GRAPH_LENGTH },
+      "fields.data.1w": { $slice: -1 * GRAPH_LENGTH },
+    }
   )
     .sort("-fields.data.raw.timestamp")
     .populate("fields.field");
@@ -149,24 +158,27 @@ router.get("/", async (req, res) => {
   */
 });
 
-/*
+
 router.get("/latest", async (req, res) => {
-    const boxes = Box.field;
+    const boxes = await Box.find(
+      {},
+      {
+        "fields.data.raw": { $slice: -1 },
+        "fields.data.5m": { $slice: -1 },
+        "fields.data.30m": { $slice: -1 },
+        "fields.data.1h": { $slice: -1 },
+        "fields.data.4h": { $slice: -1 },
+        "fields.data.12h": { $slice: -1 },
+        "fields.data.1d": { $slice: -1 },
+        "fields.data.1w": { $slice: -1 },
+      }
+    )
+      .sort("-fields.data.raw.timestamp")
+    .populate("fields.field");
+  res.send(boxes);
 });
 
-
-router.patch("/update/:Time/:boxID/:fieldcount", async (req, res) => {
-    const box = await Box.findById(req.params.boxID);
-    box.fields.forEach((field) => {
-        if ((field.fieldCount = req.params.fieldcount)) {
-          field.data.forEach(time => {
-            if()
-          });
-        }
-    });
-});
-*/
-
+/*
 router.get("/:boxname", async (req, res) => {
   try {
     const box = await Box.find({ slug: req.params.boxname });
@@ -194,5 +206,5 @@ router.get("/fields/:fieldcount/:fieldID", async (req, res) => {
 
 
 
-
+*/
 module.exports = router;
