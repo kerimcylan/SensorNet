@@ -4,34 +4,31 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import type { NextPage } from "next";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { getFields } from "@/helpers/dataManipulation";
 
-
-export async function getStaticProps({
-  locale,
-}: {
-  locale: any;
-}) {
-  //const res = await fetch("http://164.90.233.32/api/boxes/latest");
-  //const boxdata = await res.json();
+export async function getStaticProps({ locale }: { locale: any }) {
+  const res = await fetch("http://164.90.233.32/api/boxes/latest");
+  const boxdata = await res.json();
 
   return {
     props: {
       ...(await serverSideTranslations(locale, ["common"])),
-
+      boxdata,
     },
   };
 }
 
-const boxesPage = ({props}: {props:any}) => {
-  const mockd = mockData;
+const sensorsPage = ({ props }: { props: any }) => {
+  const mockd = getFields(mockData);
 
-
-  const [data, setData] = useState(mockd)
+  const [data, setData] = useState(mockd);
   useEffect(() => {
     const fetchData = async () => {
       const res = await fetch("http://164.90.233.32/api/boxes/latest");
-      const boxdata = await res.json();
-      setData(boxdata);
+        const boxdata = await res.json();
+        
+        const sensorData = getFields(boxdata);
+      setData(sensorData);
     };
     const timeouted = async () => {
       fetchData();
@@ -41,33 +38,24 @@ const boxesPage = ({props}: {props:any}) => {
     timeouted();
   }, []);
 
-
   const boxes = data.map((i: any) => {
     return (
-      <Link href={'/boxes/' + i.slug }>
+      <Link href={"/sensors/" + i._id}>
         <div className="bg-blue-light p-3 rounded-xl">
           <div>
-            <div className="text-black font-medium mb-3">Box Name:</div>
+            <div className="text-black font-medium mb-3">Sensor Name:</div>
             <div className="text-3xl font-semibold">{i.name}</div>
-          </div>
-          <div className="flex">
-            <div className="text-black font-medium mr-4">Location:</div>
-            <div>
-              <MapPointer location={i.location} />
-            </div>
           </div>
         </div>
       </Link>
     );
   });
 
-    return (
-      <>
-        <div className="container grid grid-cols-3 gap-3">
-        {boxes}
-        </div>
-      </>
-    );
-}
+  return (
+    <>
+      <div className="container grid grid-cols-3 gap-3">{boxes}</div>
+    </>
+  );
+};
 
-export default boxesPage;
+export default sensorsPage;

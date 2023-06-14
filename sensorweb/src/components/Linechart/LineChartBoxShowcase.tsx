@@ -3,6 +3,7 @@ import React from "react";
 import LineChartMount from "./LineChartMount";
 
 export default function LineChartBoxShowcase(props: { data: BoxData }) {
+  console.log(props.data)
   const fields = props.data.fields.map((field) => {
     return (
       <div>
