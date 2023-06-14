@@ -8,6 +8,7 @@ const slugify = require("slug");
 const Field = require("../models/Field");
 const ObjectId = require("mongoose").Types.ObjectId;
 
+
 async function updateRawData(id, field, timestamp, value) {
 
     box = await Box.updateOne(
@@ -28,6 +29,8 @@ async function updateRawData(id, field, timestamp, value) {
     accepted = true;
     return accepted;
 }
+
+
 
 // insert data
 router.post("/", async (req, res) => {
@@ -172,22 +175,7 @@ router.get("/fields/:fieldcount/:fieldID", async (req, res) => {
 });
 
 
-// Dummy data testing for masterbox
-router.get("/test", async (req, res) => {
-    const fs = require("fs");
-    const path = require("path");
-    fs.readFile(
-        path.resolve(__dirname, "../storage/last_data.json"),
-        (err, data) => {
-            if (err) res.send(err);
-            else {
-                let lastData = JSON.parse(data);
-                res.send(lastData);
-            }
-        }
-    );
-    return "hehe";
-});
+
 
 
 module.exports = router;

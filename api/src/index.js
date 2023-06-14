@@ -26,6 +26,9 @@ app.use("/api/posts", postsRoute);
 const boxesRoute = require("./routes/boxes");
 app.use("/api/boxes", boxesRoute);
 
+const testRoute = require("./routes/test");
+app.use("/api/test", testRoute);
+
 //ROUTES  get:get the info  post:give the info  delete patch:updates
 app.get("/api", (req, res) => {
     res.send("We are on home. yes yes yes yes yes ");
