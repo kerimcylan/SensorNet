@@ -102,9 +102,11 @@ export const graphDataFromSensorData = (data: Array<SensorDatum>) => {
         labels: [],
         datasets: [{ data: [] }]
     };
-    data.forEach(datum => {
-        graphData.labels.push(datum.timestamp);
-        graphData.datasets[0].data.push(datum.value);
+  data.forEach(datum => {
+    if (datum.timestamp) {
+      graphData.labels.push(datum.timestamp);
+      graphData.datasets[0].data.push(datum.value);
+    }
     })
     return graphData;
 }
