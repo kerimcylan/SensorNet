@@ -1,41 +1,51 @@
 import mockData from "@/helpers/mockData";
-import LineChartBoxShowcase from "@/components/Linechart/LineChartBoxShowcase";
 import MapPointer from "@/components/MapPointer";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import type { NextPage } from "next";
 
 
+export async function getStaticProps({
+  locale,
+}: {
+  locale: any;
+}) {
+  const res = await fetch("http://164.90.233.32/api/boxes/latest");
+  const boxdata = await res.json();
 
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+      boxdata,
+    },
+  };
+}
 
-const boxesPage: NextPage = () => {
+const boxesPage = ({props}: {props:any}) => {
     const mockd = mockData[0];
     
-
+  const boxes = props.boxdata.map((i: any) => {
     return (
-      <>
-        <div className="container flex justify-between bg-blue-light rounded-xl p-6">
+      <div className="bg-blue-light p-3 rounded-xl">
+        <div>
+          <div className="text-black font-medium mb-3">Box Name:</div>
+          <div className="text-3xl font-semibold">{mockd.name}</div>
+        </div>
+        <div className="flex">
+          <div className="text-black font-medium mr-4">Location:</div>
           <div>
-            <div className="text-black font-medium mb-3">Box Name:</div>
-            <div className="text-3xl font-semibold">{mockd.name}</div>
-          </div>
-          <div className="flex">
-            <div className="text-black font-medium mr-4">Location:</div>
-            <div><MapPointer location={mockd.location} /></div>
+            <MapPointer location={mockd.location} />
           </div>
         </div>
-        <div className="container my-20 w-full">
-          <LineChartBoxShowcase data={mockd} />
+      </div>
+    );
+  });
+    return (
+      <>
+        <div className="container grid grid-cols-3">
+          {boxes}
         </div>
       </>
     );
 }
 
 export default boxesPage;
-export async function getStaticProps({ locale }: any) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ["common"])),
-      // Will be passed to the page component as props
-    },
-  };
-}
