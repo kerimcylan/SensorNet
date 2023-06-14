@@ -27,7 +27,6 @@ export default function Navbar() {
               <Link href="/boxes">{t("Boxes")}</Link>
             </li>
             <li className="text-2xl">{t("Sensors")}</li>
-            <li className="text-2xl">{t("Api Docs")}</li>
             <li className="text-2xl">{t("About Us")}</li>
             <li className="flex flex-row gap-6">
               <div>
