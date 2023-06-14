@@ -182,6 +182,36 @@ router.get("/latest", async (req, res) => {
 });
 
 /*
+router.get("/verydangerousdataclearprocedure", async (req, res) => {
+  
+  const fields = await Field.find().select('_id');
+
+  const boxes = await Box.updateMany(
+    {
+      "fields.field": "6489bbe8913b710f0cad7b3b",
+    },
+    {
+      $set: {
+        "fields.$.data.raw": [],
+        "fields.$.data.1m": [],
+        "fields.$.data.5m": [],
+        "fields.$.data.30m": [],
+        "fields.$.data.1h": [],
+        "fields.$.data.4h": [],
+        "fields.$.data.12h": [],
+        "fields.$.data.1d": [],
+        "fields.$.data.1w": [],
+      },
+    }
+  );
+  
+
+
+
+  res.send('ok');
+});
+*/
+/*
 router.get("/:boxname", async (req, res) => {
   try {
     const box = await Box.find({ slug: req.params.boxname });
