@@ -127,7 +127,8 @@ router.get("/", async (req, res) => {
     {},
     {
       "fields.data.raw": { $slice: -1 * GRAPH_LENGTH },
-      "fields.data.5m": { $slice: -1 * GRAPH_LENGTH },
+      'fields.data.1m': { $slice: -1 * GRAPH_LENGTH },
+      'fields.data.5m': { $slice: -1 * GRAPH_LENGTH },
       "fields.data.30m": { $slice: -1 * GRAPH_LENGTH },
       "fields.data.1h": { $slice: -1 * GRAPH_LENGTH },
       "fields.data.4h": { $slice: -1 * GRAPH_LENGTH },
@@ -164,6 +165,7 @@ router.get("/latest", async (req, res) => {
       {},
       {
         "fields.data.raw": { $slice: -1 },
+        "fields.data.1m": { $slice: -1 },
         "fields.data.5m": { $slice: -1 },
         "fields.data.30m": { $slice: -1 },
         "fields.data.1h": { $slice: -1 },
@@ -173,8 +175,8 @@ router.get("/latest", async (req, res) => {
         "fields.data.1w": { $slice: -1 },
       }
     )
-      .sort('name')
-    .populate("fields.field");
+      .sort("name")
+      .populate("fields.field");
 
   res.send(boxes);
 });
