@@ -8,7 +8,7 @@ const slugify = require("slug");
 const Field = require("../models/Field");
 const ObjectId = require("mongoose").Types.ObjectId;
 
-const GRAPH_LENGTH = 2;
+const GRAPH_LENGTH = 30;
 
 
 async function updateRawData(id, field, timestamp, value) {
