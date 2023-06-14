@@ -38,36 +38,59 @@ const LinechartVisual = (props: {
     );
     
 
+    //60 * 100 equals a minute
+  let dateModifier = 60*1000;
 let unit = "minutes"
   switch (props.resolution) {
     case TSResolutions.raw:
       unit = "second";
+      // 30 minutes
+      dateModifier *= 30;
       break;
     case TSResolutions["1m"]:
       unit = "minute";
+      dateModifier *= 3 * 30;
       break;
     case TSResolutions["5m"]:
+      dateModifier *= 5 * 3 * 30;
       unit = "minute";
       break;
     case TSResolutions["30m"]:
+      dateModifier *= 6 * 5 * 3 * 30;
       unit = "hour";
       break;
     case TSResolutions["1h"]:
+      dateModifier *= 2 * 6 * 5 * 3 * 30;
       unit = "hour";
       break;
     case TSResolutions["4h"]:
+      dateModifier *= 4 * 2 * 6 * 5 * 3 * 30;
       unit = "hour";
       break;
     case TSResolutions["12h"]:
+      dateModifier *= 3 * 4 * 2 * 6 * 5 * 3 * 30;
      unit = "day";
       break;
     case TSResolutions["1d"]:
+      dateModifier *= 2 * 3 * 4 * 2 * 6 * 5 * 3 * 30;
       unit = "day";
       break;
     case TSResolutions["1w"]:
+      dateModifier *= 7 * 3 * 4 * 2 * 6 * 5 * 3 * 30;
       unit = "week";
       break;
-    }
+  }
+  
+    const data = props.data;
+    const lastDate = Date.parse(props.data.labels[data.labels.length - 1]);
+
+    const cleanData: GraphData = { labels: [], datasets: [{ data: [] }] };
+    data.labels.forEach((date, index) => {
+      if (!(lastDate - Date.parse(date) > dateModifier)) {
+        cleanData.labels.push(date);
+        cleanData.datasets[0].data.push(data.datasets[0].data[index]);
+      }
+    });
     
   const options = {
     plugins: {
@@ -113,7 +136,7 @@ let unit = "minutes"
     },
     };
     
-  return <Line data={props.data} width={100} height={40} options={options} />;
+  return <Line data={cleanData} width={100} height={40} options={options} />;
 };
 
 export default LinechartVisual;
