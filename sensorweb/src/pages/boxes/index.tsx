@@ -22,7 +22,7 @@ export async function getStaticProps({
 
 const boxesPage = ({props}: {props:any}) => {
     const mockd = mockData[0];
-    
+    /*
   const boxes = props.boxdata.map((i: any) => {
     return (
       <div className="bg-blue-light p-3 rounded-xl">
@@ -39,6 +39,7 @@ const boxesPage = ({props}: {props:any}) => {
       </div>
     );
   });
+  */
     return (
       <>
         <div className="container grid grid-cols-3">
