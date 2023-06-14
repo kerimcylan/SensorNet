@@ -77,9 +77,10 @@ export const getFields = (fullData: FullData) => {
   return fields;
 };
 
-export const heatmapPoints = (fullData: FullData, sensorId: string) => {
+export const heatmapPoints = (fullData: FullData, sensorId: string | undefined) => {
     const points: DataPoint<"x", "y", "value">[] = [];
 
+  if (typeof sensorId == undefined) return [];
   fullData.forEach((box) => {
       
     const sensorData = box.fields.find((i) => i.field._id == sensorId)?.data;
