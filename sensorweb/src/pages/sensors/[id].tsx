@@ -45,7 +45,7 @@ export async function getStaticProps({
   };
 }
 
-const boxesPage = ({ props }: { props: { id: string } }) => {
+const sensorsPage = ({ props }: { props: { id: string } }) => {
   //const mockd = mockData.filter((i) => i.name == params.slug)[0];
   const router = useRouter();
 
@@ -97,4 +97,4 @@ const boxesPage = ({ props }: { props: { id: string } }) => {
   );
 };
 
-export default boxesPage;
+export default sensorsPage;
