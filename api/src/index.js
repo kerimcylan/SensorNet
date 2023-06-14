@@ -34,7 +34,7 @@ app.get("/api", (req, res) => {
     res.send("We are on home. yes yes yes yes yes ");
 });
 
-mongoose.connect(process.env.DB_CONNECTION, { useNewURLparser: true }, () =>
+mongoose.connect(process.env.DB_CONNECTION, { useNewURLparser: true, autoIndex: false }, () =>
     console.log("connected to DB")
 );
 

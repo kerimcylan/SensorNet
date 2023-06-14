@@ -26,7 +26,7 @@ const BoxSchema = mongoose.Schema({
         {
           raw: [
             {
-              timestamp: { type: Date, required: true },
+              timestamp: { type: Date, required: true, index: true },
               value: { type: Number, required: true },
             },
           ],
@@ -84,4 +84,6 @@ const BoxSchema = mongoose.Schema({
   ],
 });
 
+BoxSchema.set('autoIndex', false);
+BoxSchema.index({"fields.data.raw.timestamp": 1})
 module.exports = mongoose.model("boxes", BoxSchema);

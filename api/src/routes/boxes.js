@@ -8,6 +8,8 @@ const slugify = require("slug");
 const Field = require("../models/Field");
 const ObjectId = require("mongoose").Types.ObjectId;
 
+const GRAPH_LENGTH = 2;
+
 
 async function updateRawData(id, field, timestamp, value) {
 
@@ -36,9 +38,7 @@ async function updateRawData(id, field, timestamp, value) {
 router.post("/", async (req, res) => {
     const fields = await Field.find().select("_id");
     //req.body.
-    for (key in fields) {
-        console.log(fields[key]._id == "64882ac7079865bb79058e19");
-    }
+
     for (key in req.body.data) {
         field = key;
         value = req.body.data[key];
@@ -121,15 +121,32 @@ router.post("/addfieldtobox", async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
-  try {
-    const boxes = await Box.find().populate("fields.field");
-    if (boxes) {
-      res.send(boxes);
-      return boxes;
-    }
+  //try {
+
+  const boxes = await Box.find(
+    {},
+    { "fields.data.raw": { $slice: -1 * GRAPH_LENGTH } }
+  )
+    .sort("-fields.data.raw.timestamp")
+    .populate("fields.field");
+  /*
+  const boxes = await Box.aggregate([
+    {
+      $project: {
+        fields: { data: { $sortArray: { input }, $raw: { $slice: -5 } } },
+      },
+    },
+  ]);
+            */
+  if (boxes) {
+    res.send(boxes);
+    return boxes;
+  }
+  /*
   } catch (err) {
     res.status(500).send("Error");
   }
+  */
 });
 
 /*
