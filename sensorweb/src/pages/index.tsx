@@ -1,7 +1,6 @@
 import type { NextPage } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import HeatMapWrapper from "@/components/Heatmap/heatmapWrapper";
-import { FullData } from "@/helpers/dataManipulation";
 import mockData from "@/helpers/mockData";
 
 

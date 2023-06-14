@@ -1,11 +1,12 @@
-import LinechartMount from "@/components/Linechart/LineChartMount";
 import mockData from "@/helpers/mockData";
 import LineChartBoxShowcase from "@/components/Linechart/LineChartBoxShowcase";
 import MapPointer from "@/components/MapPointer";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import type { NextPage } from "next";
 
-const boxesPage = () => {
+const boxesPage: NextPage = () => {
     const mockd = mockData[0];
-
+    
 
     return (
       <>
@@ -27,3 +28,11 @@ const boxesPage = () => {
 }
 
 export default boxesPage;
+export async function getStaticProps({ locale }: any) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+      // Will be passed to the page component as props
+    },
+  };
+}
