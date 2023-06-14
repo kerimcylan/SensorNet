@@ -1,6 +1,7 @@
 import { appWithTranslation } from "next-i18next";
 import Head from 'next/head'
 import Layout from '@/pages/layout'
+import "@/pages/globals.css";
 
 const MyApp = ({ Component, pageProps }) => { 
   return (

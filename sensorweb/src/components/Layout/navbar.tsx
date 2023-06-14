@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import "@/pages/globals.css";
+
 import { useTranslation } from "next-i18next";
 
 export default function Navbar() {
