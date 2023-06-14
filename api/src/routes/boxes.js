@@ -136,7 +136,7 @@ router.get("/", async (req, res) => {
       "fields.data.1w": { $slice: -1 * GRAPH_LENGTH },
     }
   )
-    .sort("-fields.data.raw.timestamp")
+    .sort("name")
     .populate("fields.field");
   /*
   const boxes = await Box.aggregate([
@@ -173,8 +173,9 @@ router.get("/latest", async (req, res) => {
         "fields.data.1w": { $slice: -1 },
       }
     )
-      .sort("-fields.data.raw.timestamp")
+      .sort('name')
     .populate("fields.field");
+
   res.send(boxes);
 });
 
