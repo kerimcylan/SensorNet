@@ -4,19 +4,23 @@ import LineChartBoxShowcase from "@/components/Linechart/LineChartBoxShowcase";
 import MapPointer from "@/components/MapPointer";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 export async function getStaticPaths() {
-  //const posts = await fetch("https://.../posts").then((res) => res.json());
-  const slugs = mockData.map((data) => ({
-    slug: data.name,
-  }));
+  const boxes = await fetch("http://164.90.233.32/api/boxes").then((res) =>
+    res.json()
+  );
+  console.log(boxes[0].slug);
+  const slugs = boxes.map((i: any) => i.slug);
+
+  const paths: any = [];
+  slugs.forEach((i: any) => {
+    paths.push({ params: { slug: i }, locale: 'en-us' });
+    paths.push({ params: { slug: i }, locale: "tr" });
+  })
+
   return {
-    paths: [
-      { params: { slug: "starbucks" }, locale: "en-us" },
-      { params: { slug: "starbucks" }, locale: "tr" },
-      { params: { slug: "d block" }, locale: "en-us" },
-      { params: { slug: "d block" }, locale: "tr" },
-    ],
+    paths,
     fallback: false,
   };
 }
@@ -37,24 +41,44 @@ export async function getStaticProps({ params, locale }: { params: { slug: strin
 const boxesPage = ({ props }: { props: { slug: string } }) => {
   //const mockd = mockData.filter((i) => i.name == params.slug)[0];
   const router = useRouter();
-  console.log(router.query.slug);
   const mockd = mockData[0];
+
+  const [data, setData] = useState(mockd)
+
+    useEffect(() => {
+      const fetchData = async () => {
+        const res = await fetch("http://164.90.233.32/api/boxes/");
+        const boxdata = await res.json();
+        const newData = boxdata.find((i: any) => 
+          i.slug == router.query.slug
+        )
+        console.log(newData);
+        setData(newData);
+      };
+      const timeouted = async () => {
+        fetchData();
+        setTimeout(timeouted, 5000);
+      };
+      fetchData();
+      timeouted();
+    }, []);
+  
   return (
     <>
       <div className="container flex justify-between bg-blue-light rounded-xl p-6">
         <div>
           <div className="text-black font-medium mb-3">Box Name:</div>
-          <div className="text-3xl font-semibold">{mockd.name}</div>
+          <div className="text-3xl font-semibold">{data.name}</div>
         </div>
         <div className="flex">
           <div className="text-black font-medium mr-4">Location:</div>
           <div>
-            <MapPointer location={mockd.location} />
+            <MapPointer location={data.location} />
           </div>
         </div>
       </div>
       <div className="container my-20 w-full">
-        <LineChartBoxShowcase data={mockd} />
+        <LineChartBoxShowcase data={data} />
       </div>
     </>
   );

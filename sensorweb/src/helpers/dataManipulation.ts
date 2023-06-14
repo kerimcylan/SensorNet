@@ -17,15 +17,17 @@ export enum TSResolutions {
 export type FullData = Array<BoxData>;
 
 export interface BoxData {
+  _id: string,
   name: string;
   fields: Array<BoxFieldData>;
   location: Array<number>;
+  slug: string,
 }
 
-export interface BoxFieldData{
-    fieldId: number,
-    name: string,
-    data: BoxResolutionData
+export interface BoxFieldData {
+  field: FieldDatum,
+  data: BoxResolutionData,
+  _id: string
 }
 
 export interface BoxResolutionData {
@@ -41,6 +43,7 @@ export interface BoxResolutionData {
 }
 
 export interface SensorDatum {
+  _id: string
   timestamp: string;
   value: number;
 }
@@ -50,24 +53,30 @@ export interface FieldData {
   [field: string]: FieldDatum;
 }
 
+// Doesnt need prolly
 export interface FieldDatum {
+  _id: string,
+  name: string,
   min: number;
   max: number;
-  aqiWeight: number;
+  AQI: number;
 }
 
 export const getFields = (fullData: FullData) => {
-    const fields: Array<string> = [];
-
+    const fieldIds: Array<string> = [];
+  const fields: Array<FieldDatum> = [];
     fullData.forEach((box) => {
         box.fields.forEach((field) => {
-            if (!fields.includes(field.name)) fields.push(field.name);
+          if (!fieldIds.includes(field.field?._id)) {
+            fieldIds.push(field.field?._id);
+            fields.push(field?.field)
+            } 
     })
     });
   return fields;
 };
 
-export const heatmapPoints = (fullData: FullData, field: string) => {
+export const heatmapPoints = (fullData: FullData) => {
     const points: DataPoint<"x", "y", "value">[] = [];
 
     fullData.forEach((box) => {

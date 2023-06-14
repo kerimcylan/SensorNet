@@ -4,6 +4,9 @@ import MapPointer from "@/components/MapPointer";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import type { NextPage } from "next";
 
+
+
+
 const boxesPage: NextPage = () => {
     const mockd = mockData[0];
     
