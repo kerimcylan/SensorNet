@@ -38,7 +38,10 @@ async function updateRawData(id, field, timestamp, value) {
 router.post("/", async (req, res) => {
     const fields = await Field.find().select("_id");
     //req.body.
-
+  if (req.body.Datetime == null) {
+    res.send('error')
+    return;
+  }
     for (key in req.body.data) {
         field = key;
         value = req.body.data[key];
