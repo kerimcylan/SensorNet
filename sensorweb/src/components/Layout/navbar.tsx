@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import "@/pages/globals.css";
+
 import { useTranslation } from "next-i18next";
 
 export default function Navbar() {
@@ -20,10 +20,13 @@ export default function Navbar() {
         />
         <div>
           <ul className="flex flex-row gap-10">
-            <li className="text-2xl">{t("Home")}</li>
-            <li className="text-2xl">{t("Boxes")}</li>
+            <li className="text-2xl">
+              <Link href="/">{t("Home")}</Link>
+            </li>
+            <li className="text-2xl">
+              <Link href="/boxes">{t("Boxes")}</Link>
+            </li>
             <li className="text-2xl">{t("Sensors")}</li>
-            <li className="text-2xl">{t("Api Docs")}</li>
             <li className="text-2xl">{t("About Us")}</li>
             <li className="flex flex-row gap-6">
               <div>

@@ -1,6 +1,6 @@
 import Navbar from "../components/Layout/navbar";
 import Footer from "../components/Layout/footer";
-import "./globals.css";
+
 
 type Props = {
   children: string | JSX.Element | JSX.Element[];

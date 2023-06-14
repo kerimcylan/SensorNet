@@ -45,13 +45,13 @@ const HeatMap = (props: heatmapProps) => {
 
     // create heatmap with configuration
     (window as any).heatmapInstance = h337.create(config);
-    console.log(points);
     (window as any).heatmapInstance.setData({
       max: props.max,
       min: props.min,
       data: points,
     });
   };
+  
   useEffect(() => {
     if (containerRef.current) {
       const element: HTMLElement = containerRef.current!;
@@ -68,6 +68,7 @@ const HeatMap = (props: heatmapProps) => {
       addEventListener("resize", renderHeatmapEvent);
     }
 
+    // Cleaning the previous heatmap instance
     return () => {
       if ((window as any).heatmapInstance) {
               (window as any).heatmapInstance._renderer.canvas.remove();
