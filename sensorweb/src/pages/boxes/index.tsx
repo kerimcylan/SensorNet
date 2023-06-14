@@ -43,7 +43,7 @@ const boxesPage = ({props}: {props:any}) => {
     return (
       <>
         <div className="container grid grid-cols-3">
-          {boxes}
+ 
         </div>
       </>
     );
