@@ -8,11 +8,10 @@ import { useEffect, useState } from "react";
 export async function getStaticProps({ locale }: { locale: any }) {
   //const res = await fetch("http://localhost/api/boxes/latest");
   //const boxdata = await res.json();
-  console.log(boxdata);
+
   return {
     props: {
       ...(await serverSideTranslations(locale, ["common"])),
-      mydata: boxdata,
     },
   };
 }
