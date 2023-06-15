@@ -55,11 +55,9 @@ const boxesPage = ({ props }: { props: { slug: string } }) => {
         const boxdata = await res.json();
         const injected = aqiInjector(boxdata);
         const newData = typeof injected != undefined ? injected : boxdata;
-        const fixedData = aqiInjector(boxdata).find((i: any) => 
-          i.slug == router.query.slug
-        )
+        const fixedData = newData.find((i: any) => i.slug == router.query.slug);
 
-        setData(newData);
+        setData(fixedData);
       };
       const timeouted = async () => {
         fetchData();
