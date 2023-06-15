@@ -112,10 +112,12 @@ import os
 import pandas as pd
 from pymongo import MongoClient
 import time
+from operator import attrgetter
 
 # MongoDB Connection.
 mongodb_uri = os.getenv('MONGODB_URI')
-client = MongoClient(mongodb_uri)
+#client = MongoClient(mongodb_uri)
+client = MongoClient('mongodb+srv://khassensor:Nt!51f3!k@khassensornetwork.biwmfgq.mongodb.net/sensordummy?retryWrites=true&w=majority')
 db = client['sensordummy']
 collection = db['boxes']
 
@@ -140,6 +142,7 @@ while True:
                 field_data['field'] = field_id
 
                 raw_data = entry['data']['raw']
+                raw_data.sort(key=lambda item:item['timestamp'], reverse=True)
                 field_data['raw'] = raw_data
 
                 processed_values = []
