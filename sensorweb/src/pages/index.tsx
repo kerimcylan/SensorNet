@@ -3,7 +3,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import HeatMapWrapper from "@/components/Heatmap/heatmapWrapper";
 import mockData from "@/helpers/mockData";
 import { useEffect, useState } from "react";
-
+import aqiInjector from "@/helpers/aqiInjector";
 
 export async function getStaticProps({ locale }: { locale: any }) {
   //const res = await fetch("http://localhost/api/boxes/latest");
@@ -18,7 +18,7 @@ export async function getStaticProps({ locale }: { locale: any }) {
 
 
 const Home = () => {
-  const [mapData, setMapData] = useState(mockData);
+  const [mapData, setMapData] = useState(aqiInjector(mockData));
 
   const field = {
     Temperature: { min: 10, max: 20, aqiWeight: 0.5 },
@@ -31,7 +31,7 @@ const Home = () => {
       const res = await fetch("http://164.90.233.32/api/boxes/latest");
       const boxdata = await res.json();
 
-      setMapData(boxdata);
+      setMapData(aqiInjector(boxdata));
     }
     const timeouted = async () => {
       fetchData()

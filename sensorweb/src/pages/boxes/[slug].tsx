@@ -5,7 +5,8 @@ import MapPointer from "@/components/MapPointer";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-
+import aqiInjector from "@/helpers/aqiInjector";
+import { BoxData } from "@/helpers/dataManipulation";
 export async function getStaticPaths() {
   const boxes = await fetch("http://164.90.233.32/api/boxes").then((res) =>
     res.json()
@@ -41,18 +42,18 @@ export async function getStaticProps({ params, locale }: { params: { slug: strin
 const boxesPage = ({ props }: { props: { slug: string } }) => {
   //const mockd = mockData.filter((i) => i.name == params.slug)[0];
   const router = useRouter();
-  const mockd = mockData[0];
+  const mockd: BoxData | undefined = aqiInjector(mockData)[0];
 
-  const [data, setData] = useState(mockd)
+  const [data, setData] = useState<BoxData|undefined>(mockd)
 
     useEffect(() => {
       const fetchData = async () => {
         const res = await fetch("http://164.90.233.32/api/boxes/");
         const boxdata = await res.json();
-        const newData = boxdata.find((i: any) => 
+        const newData = aqiInjector(boxdata).find((i: any) => 
           i.slug == router.query.slug
         )
-        console.log(newData);
+
         setData(newData);
       };
       const timeouted = async () => {

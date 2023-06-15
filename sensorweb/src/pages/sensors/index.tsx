@@ -5,6 +5,7 @@ import type { NextPage } from "next";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { getFields } from "@/helpers/dataManipulation";
+import aqiInjector from "@/helpers/aqiInjector";
 
 export async function getStaticProps({ locale }: { locale: any }) {
   const res = await fetch("http://164.90.233.32/api/boxes/latest");
@@ -19,7 +20,7 @@ export async function getStaticProps({ locale }: { locale: any }) {
 }
 
 const sensorsPage = ({ props }: { props: any }) => {
-  const mockd = getFields(mockData);
+  const mockd = getFields(aqiInjector(mockData));
 
   const [data, setData] = useState(mockd);
   useEffect(() => {
@@ -27,7 +28,7 @@ const sensorsPage = ({ props }: { props: any }) => {
       const res = await fetch("http://164.90.233.32/api/boxes/latest");
         const boxdata = await res.json();
         
-        const sensorData = getFields(boxdata);
+        const sensorData = getFields(aqiInjector(boxdata));
       setData(sensorData);
     };
     const timeouted = async () => {

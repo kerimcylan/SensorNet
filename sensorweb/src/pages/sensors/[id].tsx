@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { getFields } from "@/helpers/dataManipulation";
 import { FullData } from "@/helpers/dataManipulation";
+import aqiInjector from "@/helpers/aqiInjector";
 
 export async function getStaticPaths() {
   const boxes = await fetch("http://164.90.233.32/api/boxes").then((res) =>
@@ -20,6 +21,9 @@ export async function getStaticPaths() {
     paths.push({ params: { id: i }, locale: "en-us" });
     paths.push({ params: { id: i }, locale: "tr" });
   });
+    
+    paths.push({ params: { id: 'aqi' }, locale: 'en-us' })
+    paths.push({ params: { id: "aqi" }, locale: "tr" });
 
   return {
     paths,
@@ -49,7 +53,7 @@ const sensorsPage = ({ props }: { props: { id: string } }) => {
   //const mockd = mockData.filter((i) => i.name == params.slug)[0];
   const router = useRouter();
 
-    const mockd = mockData
+    const mockd = aqiInjector(mockData)
         /*
         .map((i) => {
             console.log(i)
@@ -66,13 +70,15 @@ const sensorsPage = ({ props }: { props: { id: string } }) => {
   useEffect(() => {
     const fetchData = async () => {
       const res = await fetch("http://164.90.233.32/api/boxes/");
-      const boxdata = await res.json();
-      const newData = boxdata.map((i: any) => {
+        const boxdata = await res.json();
+        const injected = aqiInjector(boxdata);
+      const newData = injected.map((i: any) => {
         i.fields = i.fields.filter((j: any) => {
           return j.field._id == router.query.id;
         });
         return i;
       });
+        console.log(newData)
       setData(newData);
     };
 
@@ -89,7 +95,7 @@ const sensorsPage = ({ props }: { props: { id: string } }) => {
       <div className="container flex justify-between bg-blue-light rounded-xl p-6">
         <div>
           <div className="text-black font-medium mb-3">Sensor:</div>
-          <div className="text-3xl font-semibold">{mockField.name}</div>
+                  <div className="text-3xl font-semibold">{ data[0].fields[0].field.name }</div>
         </div>
       </div>
       <div className="container my-20 w-full">
