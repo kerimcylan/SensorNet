@@ -30,7 +30,6 @@ export default function Footer() {
             <li className="font-bold">{t("Home")}</li>
             <li className="font-bold">{t("Boxes")}</li>
             <li className="font-bold">{t("Sensors")}</li>
-            <li className="font-bold">{t("About Us")}</li>
           </ul>
         </div>
       </div>
