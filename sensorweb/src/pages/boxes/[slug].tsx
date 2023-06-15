@@ -42,18 +42,21 @@ export async function getStaticProps({ params, locale }: { params: { slug: strin
 const boxesPage = ({ props }: { props: { slug: string } }) => {
   //const mockd = mockData.filter((i) => i.name == params.slug)[0];
   const router = useRouter();
-  const mockd: BoxData | undefined = aqiInjector(mockData)[0];
+  const injected = aqiInjector(mockData);
+  const mockd: BoxData = injected[0] ? injected[0] : mockData[0];
 
-  const [data, setData] = useState<BoxData|undefined>(mockd)
+  const [data, setData] = useState(mockd)
 
     useEffect(() => {
       const fetchData = async () => {
         const res = await fetch("http://164.90.233.32/api/boxes/");
         const boxdata = await res.json();
-        const newData = aqiInjector(boxdata).find((i: any) => 
+        const injected = aqiInjector(boxdata);
+        const newData = typeof injected != undefined ? injected : boxdata;
+        const fixedData = aqiInjector(boxdata).find((i: any) => 
           i.slug == router.query.slug
         )
-
+        
         setData(newData);
       };
       const timeouted = async () => {
