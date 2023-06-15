@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { getFields } from "@/helpers/dataManipulation";
 import { FullData } from "@/helpers/dataManipulation";
 import aqiInjector from "@/helpers/aqiInjector";
+import { useTranslation } from "next-i18next";
 
 export async function getStaticPaths() {
   const boxes = await fetch("http://164.90.233.32/api/boxes").then((res) =>
@@ -52,7 +53,7 @@ export async function getStaticProps({
 const sensorsPage = ({ props }: { props: { id: string } }) => {
   //const mockd = mockData.filter((i) => i.name == params.slug)[0];
   const router = useRouter();
-
+  const { t } = useTranslation();
     const mockd = aqiInjector(mockData)
         /*
         .map((i) => {
@@ -94,7 +95,7 @@ const sensorsPage = ({ props }: { props: { id: string } }) => {
     <>
       <div className="container flex justify-between bg-blue-light rounded-xl p-6">
         <div>
-          <div className="text-black font-medium mb-3">Sensor:</div>
+                  <div className="text-black font-medium mb-3">{t("Sensor")}:</div>
                   <div className="text-3xl font-semibold">{ data[0].fields[0].field.name }</div>
         </div>
       </div>

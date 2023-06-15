@@ -7,6 +7,8 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import aqiInjector from "@/helpers/aqiInjector";
 import { BoxData } from "@/helpers/dataManipulation";
+import { useTranslation } from "next-i18next";
+
 export async function getStaticPaths() {
   const boxes = await fetch("http://164.90.233.32/api/boxes").then((res) =>
     res.json()
@@ -46,7 +48,7 @@ const boxesPage = ({ props }: { props: { slug: string } }) => {
   const mockd: BoxData = injected[0] ? injected[0] : mockData[0];
 
   const [data, setData] = useState(mockd)
-
+  const { t } = useTranslation();
     useEffect(() => {
       const fetchData = async () => {
         const res = await fetch("http://164.90.233.32/api/boxes/");
@@ -56,7 +58,7 @@ const boxesPage = ({ props }: { props: { slug: string } }) => {
         const fixedData = aqiInjector(boxdata).find((i: any) => 
           i.slug == router.query.slug
         )
-        
+
         setData(newData);
       };
       const timeouted = async () => {
@@ -71,11 +73,11 @@ const boxesPage = ({ props }: { props: { slug: string } }) => {
     <>
       <div className="container flex justify-between bg-blue-light rounded-xl p-6">
         <div>
-          <div className="text-black font-medium mb-3">Box Name:</div>
+          <div className="text-black font-medium mb-3">{t("Box Name")}:</div>
           <div className="text-3xl font-semibold">{data.name}</div>
         </div>
         <div className="flex">
-          <div className="text-black font-medium mr-4">Location:</div>
+          <div className="text-black font-medium mr-4">{t("Location")}:</div>
           <div>
             <MapPointer location={data.location} />
           </div>

@@ -4,7 +4,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import type { NextPage } from "next";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
+import { useTranslation } from "next-i18next";
 
 export async function getStaticProps({
   locale,
@@ -25,6 +25,7 @@ export async function getStaticProps({
 const boxesPage = ({props}: {props:any}) => {
   const mockd = mockData;
 
+  const { t } = useTranslation();
 
   const [data, setData] = useState(mockd)
   useEffect(() => {
@@ -47,11 +48,11 @@ const boxesPage = ({props}: {props:any}) => {
       <Link href={'/boxes/' + i.slug }>
         <div className="bg-blue-light p-3 rounded-xl">
           <div>
-            <div className="text-black font-medium mb-3">Box Name:</div>
+            <div className="text-black font-medium mb-3">{t("Box Name")}:</div>
             <div className="text-3xl font-semibold">{i.name}</div>
           </div>
           <div className="flex">
-            <div className="text-black font-medium mr-4">Location:</div>
+            <div className="text-black font-medium mr-4">{t("Location")}:</div>
             <div>
               <MapPointer location={i.location} />
             </div>

@@ -4,6 +4,7 @@ import HeatMapWrapper from "@/components/Heatmap/heatmapWrapper";
 import mockData from "@/helpers/mockData";
 import { useEffect, useState } from "react";
 import aqiInjector from "@/helpers/aqiInjector";
+import { useTranslation } from "next-i18next";
 
 export async function getStaticProps({ locale }: { locale: any }) {
   //const res = await fetch("http://localhost/api/boxes/latest");
@@ -19,7 +20,7 @@ export async function getStaticProps({ locale }: { locale: any }) {
 
 const Home = () => {
   const [mapData, setMapData] = useState(aqiInjector(mockData));
-
+  const { t } = useTranslation();
   const field = {
     Temperature: { min: 10, max: 20, aqiWeight: 0.5 },
     Humidity: { min: -100, max: 10, aqiWeight: 0.5 },

@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { getFields } from "@/helpers/dataManipulation";
 import aqiInjector from "@/helpers/aqiInjector";
+import { useTranslation } from "next-i18next";
 
 export async function getStaticProps({ locale }: { locale: any }) {
   const res = await fetch("http://164.90.233.32/api/boxes/latest");
@@ -21,7 +22,7 @@ export async function getStaticProps({ locale }: { locale: any }) {
 
 const sensorsPage = ({ props }: { props: any }) => {
   const mockd = getFields(aqiInjector(mockData));
-
+  const { t } = useTranslation();
   const [data, setData] = useState(mockd);
   useEffect(() => {
     const fetchData = async () => {
@@ -44,8 +45,8 @@ const sensorsPage = ({ props }: { props: any }) => {
       <Link href={"/sensors/" + i._id}>
         <div className="bg-blue-light p-3 rounded-xl">
           <div>
-            <div className="text-black font-medium mb-3">Sensor Name:</div>
-            <div className="text-3xl font-semibold">{i.name}</div>
+                    <div className="text-black font-medium mb-3">{t("Sensor Name")}:</div>
+            <div className="text-3xl font-semibold">{t(i.name)}</div>
           </div>
         </div>
       </Link>

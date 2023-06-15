@@ -2,11 +2,12 @@ import { FullData, FieldDatum, getFields, heatmapPoints } from "@/helpers/dataMa
 import HeatMap, { heatmapProps } from "./heatmap";
 import { useState } from "react";
 import { DataPoint } from "heatmap.js";
+import { useTranslation } from "next-i18next";
 
 const HeatmapWapper = (props: { data: FullData }) => {
   
   const fields = getFields(props.data);
-
+  const { t } = useTranslation();
 
   let map: DataPoint<"x", "y", "value">[] = [];
   let sensorState: FieldDatum | null = null;
@@ -23,7 +24,7 @@ const HeatmapWapper = (props: { data: FullData }) => {
   
   const headerClasses =
     "border-2 border-b-0 px-3 border-blue-dark cursor-pointer";
-  
+
 
   const renderFields = fields.map((field, index) => (
     <li
@@ -35,7 +36,7 @@ const HeatmapWapper = (props: { data: FullData }) => {
       key={field._id}
       onClick={() => setSensor(field._id)}
     >
-      {field.name}
+      {t(field.name)}
     </li>
   ));
 
