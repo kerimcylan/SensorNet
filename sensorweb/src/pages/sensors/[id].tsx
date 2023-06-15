@@ -50,15 +50,17 @@ const sensorsPage = ({ props }: { props: { id: string } }) => {
   const router = useRouter();
 
     const mockd = mockData
+        /*
         .map((i) => {
+            console.log(i)
     i.fields = i.fields.filter((j) => {
       return j.field._id == router.query.id;
     });
     return i;
   });
+  */
   const mockField = mockData[0].fields[0].field;
 
-  console.log(mockd);
   const [data, setData] = useState(mockd);
 
   useEffect(() => {
