@@ -184,18 +184,18 @@ router.get("/latest", async (req, res) => {
   res.send(boxes);
 });
 
-/*
+
 router.get("/verydangerousdataclearprocedure", async (req, res) => {
   
   const fields = await Field.find().select('_id');
 
+  for (const key in fields) {
   const boxes = await Box.updateMany(
     {
-      "fields.field": "6489bbe8913b710f0cad7b3b",
+      "fields.field": fields[key]._id,
     },
     {
       $set: {
-        "fields.$.data.raw": [],
         "fields.$.data.1m": [],
         "fields.$.data.5m": [],
         "fields.$.data.30m": [],
@@ -207,13 +207,11 @@ router.get("/verydangerousdataclearprocedure", async (req, res) => {
       },
     }
   );
-  
-
-
+  }
 
   res.send('ok');
 });
-*/
+
 /*
 router.get("/:boxname", async (req, res) => {
   try {
