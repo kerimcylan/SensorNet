@@ -96,7 +96,7 @@ const sensorsPage = ({ props }: { props: { id: string } }) => {
       <div className="container flex justify-between bg-blue-light rounded-xl p-6">
         <div>
                   <div className="text-black font-medium mb-3">{t("Sensor")}:</div>
-                  <div className="text-3xl font-semibold">{ data[0].fields[0].field.name }</div>
+                  <div className="text-3xl font-semibold">{ t(data[0].fields[0].field.name) }</div>
         </div>
       </div>
       <div className="container my-20 w-full">
